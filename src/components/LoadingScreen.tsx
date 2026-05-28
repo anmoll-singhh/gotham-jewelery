@@ -48,10 +48,10 @@ const BAT_D =
   'C 438 58, 386 80, 350 105 ' +       // tip → right inner wing
   'C 312 132, 272 157, 250 172 Z'      // back to bottom center
 
-const EASE_DRAW:  [number, number, number, number] = [0.42, 0, 0.58, 1]
+const EASE_DRAW: [number, number, number, number] = [0.42, 0, 0.58, 1]
 const EASE_SPLIT: [number, number, number, number] = [0.76, 0, 0.24, 1]
 
-const DRAW_MS  = 2800   // bat trace duration
+const DRAW_MS = 2800   // bat trace duration
 const PAUSE_MS = 500    // hold at complete
 const SPLIT_MS = 920    // split animation duration
 
@@ -65,11 +65,11 @@ function BatSVG({ phase }: { phase: Phase }) {
       viewBox="0 0 500 185"
       xmlns="http://www.w3.org/2000/svg"
       style={{
-        width:    'clamp(260px, 36vw, 500px)',
-        height:   'auto',
+        width: 'clamp(260px, 36vw, 500px)',
+        height: 'auto',
         overflow: 'visible',
-        display:  'block',
-        filter:   done
+        display: 'block',
+        filter: done
           ? 'drop-shadow(0 0 32px rgba(197,164,110,0.75)) drop-shadow(0 0 70px rgba(197,164,110,0.30))'
           : 'drop-shadow(0 0 12px rgba(197,164,110,0.45))',
         transition: 'filter 0.7s ease',
@@ -110,14 +110,14 @@ function BatSVG({ phase }: { phase: Phase }) {
 function ProgressBar({ phase }: { phase: Phase }) {
   const [pct, setPct] = useState(0)
   const rafRef = useRef<number>(0)
-  const t0Ref  = useRef<number>(0)
+  const t0Ref = useRef<number>(0)
 
   useEffect(() => {
     if (phase === 'splitting' || phase === 'gone') { setPct(100); return }
     t0Ref.current = performance.now()
     const total = DRAW_MS + PAUSE_MS
     const tick = (now: number) => {
-      const raw   = Math.min((now - t0Ref.current) / total, 1)
+      const raw = Math.min((now - t0Ref.current) / total, 1)
       const eased = 1 - Math.pow(1 - raw, 3)
       setPct(Math.round(eased * 100))
       if (raw < 1) rafRef.current = requestAnimationFrame(tick)
@@ -236,7 +236,7 @@ export function LoadingScreen({ onDone }: LoadingScreenProps) {
   const [phase, setPhase] = useState<Phase>('drawing')
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase('complete'),  DRAW_MS)
+    const t1 = setTimeout(() => setPhase('complete'), DRAW_MS)
     const t2 = setTimeout(() => setPhase('splitting'), DRAW_MS + PAUSE_MS)
     const t3 = setTimeout(() => {
       setPhase('gone')

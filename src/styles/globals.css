@@ -2,10 +2,17 @@
 @import "./tokens.css";
 
 /* ─── Reset ─────────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 html {
-  scroll-behavior: auto; /* Lenis owns smooth scroll */
+  scroll-behavior: auto;
+  /* Lenis owns smooth scroll */
   overflow-x: hidden;
   max-width: 100%;
 }
@@ -24,10 +31,29 @@ body {
   max-width: 100%;
 }
 
-img, video { display: block; max-width: 100%; }
-a { color: inherit; text-decoration: none; }
-button { background: none; border: none; cursor: pointer; font: inherit; color: inherit; }
-ul, ol { list-style: none; }
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
 
 /* ─── Label utility ──────────────────────────────────────────────── */
 .lbl {
@@ -40,32 +66,33 @@ ul, ol { list-style: none; }
 }
 
 /* ─── Buttons ────────────────────────────────────────────────────── */
-.btn-primary, .btn-outline {
+.btn-primary,
+.btn-outline {
   position: relative;
   overflow: hidden;
 }
 
 /* Luxury skew shimmer sweep effect */
-.btn-primary::before, .btn-outline::before {
+.btn-primary::before,
+.btn-outline::before {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 40%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(237, 232, 224, 0.28) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(237, 232, 224, 0.28) 50%,
+      transparent 100%);
   transform: skewX(-25deg);
   transition: none;
   pointer-events: none;
   z-index: 1;
 }
 
-.btn-primary:hover::before, .btn-outline:hover::before {
+.btn-primary:hover::before,
+.btn-outline:hover::before {
   left: 160%;
   transition: left 0.85s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -85,19 +112,23 @@ ul, ol { list-style: none; }
   border: 1px solid var(--c-accent);
   cursor: pointer;
   transition:
-    background  0.3s var(--ease-ui),
-    color       0.3s var(--ease-ui),
+    background 0.3s var(--ease-ui),
+    color 0.3s var(--ease-ui),
     border-color 0.3s var(--ease-ui),
-    transform   0.2s var(--ease-ui);
+    transform 0.2s var(--ease-ui);
   white-space: nowrap;
   user-select: none;
 }
+
 .btn-primary:hover {
-  background:   rgba(197,164,110,0.12);
+  background: rgba(197, 164, 110, 0.12);
   border-color: var(--c-accent);
-  color:        var(--c-accent);
+  color: var(--c-accent);
 }
-.btn-primary:active { transform: translateY(1px) scale(0.983); }
+
+.btn-primary:active {
+  transform: translateY(1px) scale(0.983);
+}
 
 .btn-outline {
   display: inline-flex;
@@ -111,26 +142,31 @@ ul, ol { list-style: none; }
   font-weight: 500;
   letter-spacing: var(--ls-cta);
   text-transform: uppercase;
-  border: 1px solid rgba(237,232,224,0.22);
+  border: 1px solid rgba(237, 232, 224, 0.22);
   cursor: pointer;
   transition:
     border-color 0.3s var(--ease-ui),
-    color        0.3s var(--ease-ui),
-    background   0.3s var(--ease-ui),
-    transform    0.2s var(--ease-ui);
+    color 0.3s var(--ease-ui),
+    background 0.3s var(--ease-ui),
+    transform 0.2s var(--ease-ui);
   white-space: nowrap;
   user-select: none;
 }
+
 .btn-outline:hover {
-  border-color: rgba(197,164,110,0.55);
-  color:        var(--c-accent);
+  border-color: rgba(197, 164, 110, 0.55);
+  color: var(--c-accent);
 }
-.btn-outline:active { transform: translateY(1px) scale(0.983); }
+
+.btn-outline:active {
+  transform: translateY(1px) scale(0.983);
+}
 
 /* ─── Luxury Link Hover Underline (Desktop Nav) ─────────────────── */
 .nav-desktop a {
   position: relative;
 }
+
 .nav-desktop a::after {
   content: '';
   position: absolute;
@@ -142,6 +178,7 @@ ul, ol { list-style: none; }
   transition: width 0.32s var(--ease-ui), left 0.32s var(--ease-ui);
   transform: translateX(-50%);
 }
+
 .nav-desktop li:hover a::after {
   width: 100%;
 }
@@ -152,7 +189,8 @@ ul, ol { list-style: none; }
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: var(--c-accent); /* Fallback */
+  color: var(--c-accent);
+  /* Fallback */
 }
 
 .btn-ghost {
@@ -167,26 +205,36 @@ ul, ol { list-style: none; }
   font-weight: 500;
   letter-spacing: var(--ls-cta);
   text-transform: uppercase;
-  border: 1px solid rgba(28,27,25,0.18);
+  border: 1px solid rgba(28, 27, 25, 0.18);
   cursor: pointer;
   transition:
     border-color 0.3s var(--ease-ui),
-    background   0.3s var(--ease-ui),
-    color        0.3s var(--ease-ui),
-    transform    0.2s var(--ease-ui);
+    background 0.3s var(--ease-ui),
+    color 0.3s var(--ease-ui),
+    transform 0.2s var(--ease-ui);
   white-space: nowrap;
 }
+
 .btn-ghost:hover {
   border-color: var(--c-accent-rich);
-  color:        var(--c-accent-rich);
+  color: var(--c-accent-rich);
 }
-.btn-ghost:active { transform: translateY(1px) scale(0.983); }
+
+.btn-ghost:active {
+  transform: translateY(1px) scale(0.983);
+}
 
 /* ─── Smooth transitions ─────────────────────────────────────────── */
-a, button { transition: opacity 0.2s var(--ease-ui); }
+a,
+button {
+  transition: opacity 0.2s var(--ease-ui);
+}
 
 /* ─── Selection ──────────────────────────────────────────────────── */
-::selection { background: rgba(197,164,110,0.25); color: var(--c-white); }
+::selection {
+  background: rgba(197, 164, 110, 0.25);
+  color: var(--c-white);
+}
 
 /* ─── Focus-visible (keyboard accessibility — WCAG 2.1 AA) ──────── */
 /* Gold outline only for keyboard navigation, invisible on mouse      */
@@ -195,15 +243,21 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
   outline-offset: 3px;
   border-radius: 1px;
 }
-:focus:not(:focus-visible) { outline: none; }
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
 
 /* ─── Prefers-reduced-motion ──────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration:        0.001ms !important;
-    animation-iteration-count: 1       !important;
-    transition-duration:       0.001ms !important;
-    scroll-behavior:           auto    !important;
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
@@ -217,12 +271,27 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
   background-size: 180px 180px;
   animation: ls-grain-shift 0.5s steps(2) infinite;
 }
+
 @keyframes ls-grain-shift {
-  0%   { transform: translate(0, 0)     }
-  25%  { transform: translate(-4px, 2px)  }
-  50%  { transform: translate(2px, -3px)  }
-  75%  { transform: translate(-2px, 4px)  }
-  100% { transform: translate(3px, -1px)  }
+  0% {
+    transform: translate(0, 0)
+  }
+
+  25% {
+    transform: translate(-4px, 2px)
+  }
+
+  50% {
+    transform: translate(2px, -3px)
+  }
+
+  75% {
+    transform: translate(-2px, 4px)
+  }
+
+  100% {
+    transform: translate(3px, -1px)
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -232,12 +301,22 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
 
 /* ── Nav ─────────────────────────────────────────────────────────── */
 /* Desktop links — hidden on mobile */
-.nav-desktop { display: flex !important; }
-.nav-hamburger { display: none !important; }
+.nav-desktop {
+  display: flex !important;
+}
+
+.nav-hamburger {
+  display: none !important;
+}
 
 @media (max-width: 767px) {
-  .nav-desktop   { display: none !important; }
-  .nav-hamburger { display: flex !important; }
+  .nav-desktop {
+    display: none !important;
+  }
+
+  .nav-hamburger {
+    display: flex !important;
+  }
 }
 
 /* ── 2-col grids → 1-col on mobile ──────────────────────────────── */
@@ -246,8 +325,12 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
   grid-template-columns: 1fr 1fr;
   gap: var(--s-md);
 }
+
 @media (max-width: 767px) {
-  .grid-2col { grid-template-columns: 1fr !important; gap: var(--s-sm) !important; }
+  .grid-2col {
+    grid-template-columns: 1fr !important;
+    gap: var(--s-sm) !important;
+  }
 }
 
 /* ── 3-col grids → 1-col on mobile ──────────────────────────────── */
@@ -256,14 +339,29 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
   grid-template-columns: repeat(3, 1fr);
   gap: clamp(16px, 2vw, 28px);
 }
+
 @media (max-width: 767px) {
-  .grid-3col { grid-template-columns: 1fr; gap: 14px; }
+  .grid-3col {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
   /* WatchTiltCard uses height:100% — give cells a defined dimension */
-  .grid-3col > * { aspect-ratio: 4/5; min-height: 260px; }
+  .grid-3col>* {
+    aspect-ratio: 4/5;
+    min-height: 260px;
+  }
 }
+
 @media (min-width: 480px) and (max-width: 767px) {
-  .grid-3col { grid-template-columns: 1fr 1fr; }
-  .grid-3col > * { aspect-ratio: 3/4; min-height: 220px; }
+  .grid-3col {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .grid-3col>* {
+    aspect-ratio: 3/4;
+    min-height: 220px;
+  }
 }
 
 /* ── Horizontal scroll containers → vertical stack on mobile ─────── */
@@ -272,7 +370,9 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
   width: max-content;
   will-change: transform;
 }
+
 @media (max-width: 767px) {
+
   /* Disable horizontal scroll: unpin and show as vertical stack.
      padding-top creates room for the absolute-positioned section header
      that would otherwise overlap the first card. */
@@ -280,9 +380,22 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
     height: auto !important;
     overflow: visible !important;
   }
+
   .h-scroll-container.has-abs-header {
-    padding-top: 88px !important;
+    padding-top: 0 !important;
   }
+
+  .h-scroll-header {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    z-index: 5 !important;
+    padding: var(--s-lg) var(--gutter) var(--s-sm) var(--gutter) !important;
+    pointer-events: auto !important;
+    background: var(--c-surface) !important;
+    width: 100% !important;
+  }
+
   .h-scroll-track {
     display: flex !important;
     flex-direction: column !important;
@@ -293,6 +406,7 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
     will-change: auto !important;
     transform: none !important;
   }
+
   /* Each panel occupies exactly the full viewport height on mobile to match desktop slides */
   .h-scroll-panel {
     width: 100% !important;
@@ -306,6 +420,31 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
     flex-direction: column !important;
     justify-content: center !important;
   }
+
+  .services-card {
+    height: auto !important;
+    min-height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 auto 32px auto !important;
+    width: calc(100% - 2 * var(--gutter)) !important;
+    background: var(--c-surface-2) !important;
+    border: 1px solid rgba(197, 164, 110, 0.22) !important;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55) !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+  }
+
+  .services-card > div:first-child {
+    height: 240px !important;
+    width: 100% !important;
+  }
+
+  .services-card > div:last-child {
+    height: auto !important;
+    padding: 24px !important;
+  }
+
   /* Text-only scroll panels occupy full screen slides on mobile too */
   .h-scroll-panel-text {
     width: 100% !important;
@@ -321,17 +460,23 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
 }
 
 /* ── Hero min-height fix for mobile browsers ─────────────────────── */
-.hero-full { min-height: 100dvh; }
+.hero-full {
+  min-height: 100dvh;
+}
+
 @media (max-width: 767px) {
-  .hero-full { min-height: 100svh; }
+  .hero-full {
+    min-height: 100svh;
+  }
 }
 
 /* ── Section padding scale on mobile ────────────────────────────── */
 @media (max-width: 767px) {
   .section-pad {
-    padding-top:    var(--s-lg);
+    padding-top: var(--s-lg);
     padding-bottom: var(--s-lg);
   }
+
   /* Reduce heavy s-xl padding to s-lg on mobile */
   [style*="padding: var(--s-xl)"] {
     padding: var(--s-lg) var(--gutter) !important;
@@ -346,18 +491,21 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
     grid-template-rows: auto auto !important;
     height: auto !important;
   }
+
   /* Give cells a defined height so WatchTiltCard height:100% resolves */
-  .bento-grid > * {
+  .bento-grid>* {
     aspect-ratio: 3/4;
     min-height: 180px;
   }
-  .bento-grid > *:first-child {
+
+  .bento-grid>*:first-child {
     grid-row: auto !important;
     grid-column: 1 / -1 !important;
     aspect-ratio: 16/9;
     min-height: 220px;
   }
-  .bento-grid > *:last-child {
+
+  .bento-grid>*:last-child {
     grid-column: 1 / -1 !important;
     aspect-ratio: 16/9;
     min-height: 200px;
@@ -371,11 +519,13 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
   gap: var(--s-lg);
   align-items: flex-start;
 }
+
 @media (max-width: 767px) {
   .footer-grid {
     grid-template-columns: 1fr;
     gap: var(--s-md);
   }
+
   .footer-nav-cols {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
@@ -388,6 +538,7 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
   .exchange-grid {
     grid-template-columns: 1fr !important;
   }
+
   .craft-grid {
     grid-template-columns: 1fr !important;
     direction: ltr !important;
@@ -404,6 +555,7 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
   max-width: 360px;
   text-align: left;
 }
+
 .vault-panel-2 {
   position: absolute;
   right: var(--gutter);
@@ -418,6 +570,7 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
   .watch-canvas-wrap {
     height: 100dvh !important;
   }
+
   .vault-panel-1,
   .vault-panel-2 {
     left: var(--gutter) !important;
@@ -433,11 +586,13 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
     padding: clamp(18px, 4vw, 24px);
     border: 1px solid rgba(197, 164, 110, 0.18);
   }
+
   .vault-panel-2 span {
     text-align: center !important;
     margin-left: auto;
     margin-right: auto;
   }
+
   .vault-brand-list {
     white-space: normal !important;
     font-size: 8px !important;
@@ -453,12 +608,17 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
 .watch-tilt-card-img {
   transition: transform 1.4s var(--ease-out), filter 0.6s var(--ease-out) !important;
 }
+
 .watch-tilt-card-wrap:hover .watch-tilt-card-img {
   transform: scale(1.05);
   filter: brightness(0.64) saturate(0.96) !important;
 }
+
 @media (max-width: 767px) {
-  .watch-tilt-card { transform: none !important; }
+  .watch-tilt-card {
+    transform: none !important;
+  }
+
   .watch-tilt-card-wrap:hover .watch-tilt-card-img {
     transform: none !important;
     filter: brightness(0.52) saturate(0.82) !important;
@@ -467,17 +627,20 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
 
 /* ── Touch: remove hover-only transforms ────────────────────────── */
 @media (hover: none) {
+
   .btn-primary:hover,
   .btn-outline:hover,
   .btn-ghost:hover {
     background: initial;
-    color:      initial;
+    color: initial;
   }
 }
 
 /* ── Utility: hide on mobile ─────────────────────────────────────── */
 @media (max-width: 767px) {
-  .hide-mobile { display: none !important; }
+  .hide-mobile {
+    display: none !important;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -487,8 +650,9 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
 
 /* ── General section padding: halve the heaviest values on mobile ── */
 @media (max-width: 767px) {
+
   /* Exchange grid inner panels have var(--s-xl) top/bottom — too much */
-  .exchange-grid > * > div {
+  .exchange-grid>*>div {
     min-height: 54vh !important;
     padding: var(--s-lg) var(--gutter) !important;
   }
@@ -496,12 +660,18 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
   /* RingMoment / City parallax scenes: prevent excessive min-height */
   /* (These use inline minHeight: "85vh" / "82vh" — fine on desktop,
      but 85vh is almost full screen on a phone with no room to breathe) */
-  .ring-moment-scene { min-height: 64vh !important; }
-  .city-scene        { min-height: 64vh !important; }
+  .ring-moment-scene {
+    min-height: 64vh !important;
+  }
+
+  .city-scene {
+    min-height: 64vh !important;
+  }
 }
 
 /* ── Button tap area: ensure comfortable 44px minimum tap target ─── */
 @media (max-width: 767px) {
+
   .btn-primary,
   .btn-outline,
   .btn-ghost {
@@ -526,5 +696,7 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
 
 /* ── Prevent horizontal overflow bleed from edge-to-edge sections ── */
 @media (max-width: 767px) {
-  main { overflow-x: hidden; }
+  main {
+    overflow-x: hidden;
+  }
 }

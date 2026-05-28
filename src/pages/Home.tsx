@@ -103,8 +103,8 @@ function HeroScene({ live }: { live: boolean }) {
           },
         });
         tl.to(videoRef.current, { scale: 1.06, duration: 2.0, ease: "none" }, 0);
-        tl.to(subRef.current,  { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
-        tl.to(ctaRef.current,  { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.7);
+        tl.to(subRef.current, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
+        tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.7);
         tl.to(sideRef.current, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.85);
 
         ScrollTrigger.create({
@@ -215,15 +215,15 @@ function HeroScene({ live }: { live: boolean }) {
         {live && (
           <h1
             style={{
-              fontFamily:    "var(--f-display)",
-              fontSize:      "var(--t-hero)",
-              color:         "var(--c-white)",
-              lineHeight:    "var(--lh-display)",
-              fontStyle:     "italic",
-              fontWeight:     400,
+              fontFamily: "var(--f-display)",
+              fontSize: "var(--t-hero)",
+              color: "var(--c-white)",
+              lineHeight: "var(--lh-display)",
+              fontStyle: "italic",
+              fontWeight: 400,
               letterSpacing: "var(--ls-display)",
-              maxWidth:      "820px",
-              marginBottom:  "32px",
+              maxWidth: "820px",
+              marginBottom: "32px",
             }}
           >
             Where the stone
@@ -235,12 +235,12 @@ function HeroScene({ live }: { live: boolean }) {
         <div ref={subRef} style={{ marginBottom: "44px" }}>
           <p
             style={{
-              fontFamily:    "var(--f-body)",
-              fontSize:      "var(--t-sub)",
-              color:         "rgba(240,235,227,0.38)",
-              fontWeight:     300,
-              lineHeight:     1.9,
-              maxWidth:      "380px",
+              fontFamily: "var(--f-body)",
+              fontSize: "var(--t-sub)",
+              color: "rgba(240,235,227,0.38)",
+              fontWeight: 300,
+              lineHeight: 1.9,
+              maxWidth: "380px",
               letterSpacing: "0.012em",
             }}
           >
@@ -768,7 +768,7 @@ const SvcCard = memo(({ svc }: { svc: (typeof SERVICES)[0] }) => {
   return (
     <motion.div
       ref={ref}
-      className="h-scroll-panel"
+      className="h-scroll-panel services-card"
       onMouseMove={(e) => {
         const r = ref.current!.getBoundingClientRect();
         mx.set((e.clientX - r.left) / r.width);
@@ -974,6 +974,7 @@ function ServicesScene() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+        className="h-scroll-header"
         style={{
           position: "absolute",
           top: 0,
@@ -1491,23 +1492,23 @@ function CityScene() {
 // Client goal: "build leads forms and recurring new business"
 // ═════════════════════════════════════════════════════════════════════════════
 function LeadCaptureScene() {
-  const nameRef    = useRef<HTMLInputElement>(null)
-  const emailRef   = useRef<HTMLInputElement>(null)
-  const phoneRef   = useRef<HTMLInputElement>(null)
+  const nameRef = useRef<HTMLInputElement>(null)
+  const emailRef = useRef<HTMLInputElement>(null)
+  const phoneRef = useRef<HTMLInputElement>(null)
   const messageRef = useRef<HTMLTextAreaElement>(null)
 
   const handleSubmit = () => {
-    const name    = nameRef.current?.value.trim()    ?? ''
-    const email   = emailRef.current?.value.trim()   ?? ''
-    const phone   = phoneRef.current?.value.trim()   ?? ''
+    const name = nameRef.current?.value.trim() ?? ''
+    const email = emailRef.current?.value.trim() ?? ''
+    const phone = phoneRef.current?.value.trim() ?? ''
     const message = messageRef.current?.value.trim() ?? ''
 
     const subject = encodeURIComponent('Website Inquiry' + (name ? ` — ${name}` : ''))
-    const body    = encodeURIComponent(
+    const body = encodeURIComponent(
       [
-        name    && `Name: ${name}`,
-        email   && `Email: ${email}`,
-        phone   && `Phone: ${phone}`,
+        name && `Name: ${name}`,
+        email && `Email: ${email}`,
+        phone && `Phone: ${phone}`,
         message && `\nMessage:\n${message}`,
       ].filter(Boolean).join('\n')
     )
@@ -1520,12 +1521,12 @@ function LeadCaptureScene() {
       <div
         className="grid-2col"
         style={{
-          maxWidth:            "var(--max-w)",
-          margin:              "0 auto",
-          display:             "grid",
+          maxWidth: "var(--max-w)",
+          margin: "0 auto",
+          display: "grid",
           gridTemplateColumns: "1fr 1fr",
-          gap:                 "var(--s-lg)",
-          alignItems:          "center",
+          gap: "var(--s-lg)",
+          alignItems: "center",
         }}
       >
         {/* ── Left: copy ── */}
@@ -1538,15 +1539,15 @@ function LeadCaptureScene() {
           <span style={lbl}>Start the Conversation</span>
           <h2
             style={{
-              fontFamily:   "var(--f-display)",
-              fontSize:     "var(--t-h1)",
-              color:        "var(--c-white)",
-              fontStyle:    "italic",
-              fontWeight:    400,
-              lineHeight:   "var(--lh-display)",
-              letterSpacing:"var(--ls-display)",
-              maxWidth:     "480px",
-              marginTop:    "14px",
+              fontFamily: "var(--f-display)",
+              fontSize: "var(--t-h1)",
+              color: "var(--c-white)",
+              fontStyle: "italic",
+              fontWeight: 400,
+              lineHeight: "var(--lh-display)",
+              letterSpacing: "var(--ls-display)",
+              maxWidth: "480px",
+              marginTop: "14px",
               marginBottom: "22px",
             }}
           >
@@ -1556,12 +1557,12 @@ function LeadCaptureScene() {
           </h2>
           <p
             style={{
-              fontFamily:   "var(--f-body)",
-              fontSize:     "var(--t-sub)",
-              color:        "rgba(240,235,227,0.42)",
-              fontWeight:    300,
-              lineHeight:    1.82,
-              maxWidth:     "390px",
+              fontFamily: "var(--f-body)",
+              fontSize: "var(--t-sub)",
+              color: "rgba(240,235,227,0.42)",
+              fontWeight: 300,
+              lineHeight: 1.82,
+              maxWidth: "390px",
               marginBottom: "40px",
             }}
           >
@@ -1573,14 +1574,14 @@ function LeadCaptureScene() {
             <a
               href="tel:+19177570314"
               style={{
-                fontFamily:    "var(--f-label)",
-                fontSize:      "9px",
+                fontFamily: "var(--f-label)",
+                fontSize: "9px",
                 letterSpacing: "0.28em",
                 textTransform: "uppercase",
-                color:         "var(--c-accent)",
-                display:       "flex",
-                alignItems:    "center",
-                gap:           "12px",
+                color: "var(--c-accent)",
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
               }}
             >
               <span style={{ width: "28px", height: "1px", background: "var(--c-accent)", display: "inline-block", flexShrink: 0 }} />
@@ -1589,14 +1590,14 @@ function LeadCaptureScene() {
             <a
               href="mailto:sales@gothamcityjewelers.com"
               style={{
-                fontFamily:    "var(--f-label)",
-                fontSize:      "9px",
+                fontFamily: "var(--f-label)",
+                fontSize: "9px",
                 letterSpacing: "0.28em",
                 textTransform: "uppercase",
-                color:         "rgba(240,235,227,0.32)",
-                display:       "flex",
-                alignItems:    "center",
-                gap:           "12px",
+                color: "rgba(240,235,227,0.32)",
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
               }}
             >
               <span style={{ width: "28px", height: "1px", background: "rgba(240,235,227,0.22)", display: "inline-block", flexShrink: 0 }} />
@@ -1615,14 +1616,14 @@ function LeadCaptureScene() {
           <div
             style={{
               background: "var(--c-void)",
-              border:     "1px solid rgba(197,164,110,0.1)",
-              padding:    "var(--s-md)",
+              border: "1px solid rgba(197,164,110,0.1)",
+              padding: "var(--s-md)",
             }}
           >
             <span style={{ ...lbl, marginBottom: "28px" }}>Inquiry</span>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               {/* Visually-hidden labels for screen readers */}
-              <label htmlFor="lc-name"    style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>Your Name</label>
+              <label htmlFor="lc-name" style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>Your Name</label>
               <input
                 ref={nameRef}
                 id="lc-name"
@@ -1630,23 +1631,23 @@ function LeadCaptureScene() {
                 placeholder="Your Name"
                 autoComplete="name"
                 style={{
-                  background:    "transparent",
-                  border:        "1px solid rgba(197,164,110,0.1)",
-                  borderRadius:   0,
-                  padding:       "14px 16px",
-                  color:         "var(--c-text)",
-                  fontFamily:    "var(--f-body)",
-                  fontSize:      "13px",
+                  background: "transparent",
+                  border: "1px solid rgba(197,164,110,0.1)",
+                  borderRadius: 0,
+                  padding: "14px 16px",
+                  color: "var(--c-text)",
+                  fontFamily: "var(--f-body)",
+                  fontSize: "13px",
                   letterSpacing: "0.02em",
-                  outline:       "none",
-                  width:         "100%",
-                  transition:    "border-color 0.2s",
+                  outline: "none",
+                  width: "100%",
+                  transition: "border-color 0.2s",
                 }}
-                onFocus={e  => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.4)"; }}
-                onBlur={e   => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.1)"; }}
+                onFocus={e => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.4)"; }}
+                onBlur={e => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.1)"; }}
               />
 
-              <label htmlFor="lc-email"   style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>Email Address</label>
+              <label htmlFor="lc-email" style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>Email Address</label>
               <input
                 ref={emailRef}
                 id="lc-email"
@@ -1654,23 +1655,23 @@ function LeadCaptureScene() {
                 placeholder="Email Address"
                 autoComplete="email"
                 style={{
-                  background:    "transparent",
-                  border:        "1px solid rgba(197,164,110,0.1)",
-                  borderRadius:   0,
-                  padding:       "14px 16px",
-                  color:         "var(--c-text)",
-                  fontFamily:    "var(--f-body)",
-                  fontSize:      "13px",
+                  background: "transparent",
+                  border: "1px solid rgba(197,164,110,0.1)",
+                  borderRadius: 0,
+                  padding: "14px 16px",
+                  color: "var(--c-text)",
+                  fontFamily: "var(--f-body)",
+                  fontSize: "13px",
                   letterSpacing: "0.02em",
-                  outline:       "none",
-                  width:         "100%",
-                  transition:    "border-color 0.2s",
+                  outline: "none",
+                  width: "100%",
+                  transition: "border-color 0.2s",
                 }}
-                onFocus={e  => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.4)"; }}
-                onBlur={e   => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.1)"; }}
+                onFocus={e => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.4)"; }}
+                onBlur={e => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.1)"; }}
               />
 
-              <label htmlFor="lc-phone"   style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>Phone (optional)</label>
+              <label htmlFor="lc-phone" style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>Phone (optional)</label>
               <input
                 ref={phoneRef}
                 id="lc-phone"
@@ -1678,20 +1679,20 @@ function LeadCaptureScene() {
                 placeholder="Phone (optional)"
                 autoComplete="tel"
                 style={{
-                  background:    "transparent",
-                  border:        "1px solid rgba(197,164,110,0.1)",
-                  borderRadius:   0,
-                  padding:       "14px 16px",
-                  color:         "var(--c-text)",
-                  fontFamily:    "var(--f-body)",
-                  fontSize:      "13px",
+                  background: "transparent",
+                  border: "1px solid rgba(197,164,110,0.1)",
+                  borderRadius: 0,
+                  padding: "14px 16px",
+                  color: "var(--c-text)",
+                  fontFamily: "var(--f-body)",
+                  fontSize: "13px",
                   letterSpacing: "0.02em",
-                  outline:       "none",
-                  width:         "100%",
-                  transition:    "border-color 0.2s",
+                  outline: "none",
+                  width: "100%",
+                  transition: "border-color 0.2s",
                 }}
-                onFocus={e  => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.4)"; }}
-                onBlur={e   => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.1)"; }}
+                onFocus={e => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.4)"; }}
+                onBlur={e => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.1)"; }}
               />
 
               <label htmlFor="lc-message" style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>Your message</label>
@@ -1701,21 +1702,21 @@ function LeadCaptureScene() {
                 placeholder="What are you looking for? (ring, timepiece, custom piece, budget...)"
                 rows={3}
                 style={{
-                  background:    "transparent",
-                  border:        "1px solid rgba(197,164,110,0.1)",
-                  borderRadius:   0,
-                  padding:       "14px 16px",
-                  color:         "var(--c-text)",
-                  fontFamily:    "var(--f-body)",
-                  fontSize:      "13px",
+                  background: "transparent",
+                  border: "1px solid rgba(197,164,110,0.1)",
+                  borderRadius: 0,
+                  padding: "14px 16px",
+                  color: "var(--c-text)",
+                  fontFamily: "var(--f-body)",
+                  fontSize: "13px",
                   letterSpacing: "0.02em",
-                  outline:       "none",
-                  width:         "100%",
-                  resize:        "vertical",
-                  transition:    "border-color 0.2s",
+                  outline: "none",
+                  width: "100%",
+                  resize: "vertical",
+                  transition: "border-color 0.2s",
                 }}
-                onFocus={e  => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.4)"; }}
-                onBlur={e   => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.1)"; }}
+                onFocus={e => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.4)"; }}
+                onBlur={e => { e.currentTarget.style.borderColor = "rgba(197,164,110,0.1)"; }}
               />
               <button
                 className="btn-primary"
