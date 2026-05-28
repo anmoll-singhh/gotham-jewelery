@@ -111,7 +111,7 @@ function TheCraft() {
                 {/* Text */}
                 <div style={{
                   background:     'var(--c-dark)',
-                  padding:        'var(--s-lg) var(--s-md)',
+                  padding:        'clamp(32px, 6vw, 64px) var(--gutter)',
                   display:        'flex',
                   flexDirection:  'column',
                   justifyContent: 'center',
@@ -388,7 +388,7 @@ export default function CustomJewelry() {
           ref={heroRef}
           style={{
             position:   'relative',
-            height:     '100vh',
+            height:     '100dvh',
             overflow:   'hidden',
             background: '#080808',
             display:    'flex',
@@ -414,14 +414,14 @@ export default function CustomJewelry() {
           <div style={{
             position:   'absolute',
             inset:       0,
-            background:  'linear-gradient(to top, rgba(8,8,8,0.98) 0%, rgba(8,8,8,0.28) 55%, rgba(8,8,8,0.06) 100%)',
+            background:  'linear-gradient(to top, rgba(8,8,8,0.85) 0%, rgba(8,8,8,0.3) 35%, transparent 100%)',
           }} />
 
           <div style={{
             position:      'relative',
             zIndex:         10,
-            padding:       'var(--s-md) var(--gutter)',
-            paddingBottom: 'var(--s-lg)',
+            padding:       'var(--gutter)',
+            paddingBottom: 'clamp(24px, 5vh, 48px)',
             width:         '100%',
           }}>
             <span style={labelStyle}>The Atelier · Custom Fine Jewelry</span>

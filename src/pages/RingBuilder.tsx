@@ -61,7 +61,7 @@ function TheProcess() {
       <div ref={trackRef} className="h-scroll-track" style={{ display: 'flex', width: 'max-content', willChange: 'transform', alignItems: 'stretch' }}>
 
         {/* Intro panel */}
-        <div className="h-scroll-panel" style={{
+        <div className="h-scroll-panel h-scroll-panel-text" style={{
           width:          '50vw',
           minHeight:      '100vh',
           display:        'flex',
@@ -88,7 +88,7 @@ function TheProcess() {
         {STEPS.map((step) => (
           <div
             key={step.num}
-            className="h-scroll-panel"
+            className="h-scroll-panel h-scroll-panel-text"
             style={{
               width:          '45vw',
               minHeight:      '100vh',
@@ -298,7 +298,7 @@ export default function RingBuilder() {
           ref={heroRef}
           style={{
             position:   'relative',
-            height:     '100vh',
+            height:     '100dvh',
             overflow:   'hidden',
             background: '#080808',
             display:    'flex',
@@ -324,14 +324,14 @@ export default function RingBuilder() {
           <div style={{
             position:   'absolute',
             inset:       0,
-            background:  'linear-gradient(to top, rgba(8,8,8,0.98) 0%, rgba(8,8,8,0.35) 55%, rgba(8,8,8,0.08) 100%)',
+            background:  'linear-gradient(to top, rgba(8,8,8,0.85) 0%, rgba(8,8,8,0.3) 35%, transparent 100%)',
           }} />
 
           <div style={{
             position:      'relative',
             zIndex:         10,
-            padding:       'var(--s-md) var(--gutter)',
-            paddingBottom: 'var(--s-lg)',
+            padding:       'var(--gutter)',
+            paddingBottom: 'clamp(24px, 5vh, 48px)',
             width:         '100%',
           }}>
             <span style={labelStyle}>The Ring Studio · Custom Engagement</span>
@@ -379,7 +379,7 @@ export default function RingBuilder() {
           </div>
 
           {/* Scroll cue */}
-          <div style={{
+          <div className="hide-mobile" style={{
             position:      'absolute',
             bottom:        '32px',
             right:         'var(--gutter)',

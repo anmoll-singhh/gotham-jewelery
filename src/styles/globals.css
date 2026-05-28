@@ -35,6 +35,36 @@ ul, ol { list-style: none; }
 }
 
 /* ─── Buttons ────────────────────────────────────────────────────── */
+.btn-primary, .btn-outline {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Luxury skew shimmer sweep effect */
+.btn-primary::before, .btn-outline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(237, 232, 224, 0.28) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  transition: none;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.btn-primary:hover::before, .btn-outline:hover::before {
+  left: 160%;
+  transition: left 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -91,6 +121,34 @@ ul, ol { list-style: none; }
   color:        var(--c-accent);
 }
 .btn-outline:active { transform: translateY(1px) scale(0.983); }
+
+/* ─── Luxury Link Hover Underline (Desktop Nav) ─────────────────── */
+.nav-desktop a {
+  position: relative;
+}
+.nav-desktop a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background-color: var(--c-accent);
+  transition: width 0.32s var(--ease-ui), left 0.32s var(--ease-ui);
+  transform: translateX(-50%);
+}
+.nav-desktop li:hover a::after {
+  width: 100%;
+}
+
+/* ─── Metallic Gold Text Gradient ───────────────────────────────── */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #F9F3EA 0%, #C5A46E 50%, #91723F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: var(--c-accent); /* Fallback */
+}
 
 .btn-ghost {
   display: inline-flex;
@@ -216,6 +274,8 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
   .h-scroll-container {
     height: auto !important;
     overflow: visible !important;
+  }
+  .h-scroll-container.has-abs-header {
     padding-top: 88px !important;
   }
   .h-scroll-track {
@@ -228,17 +288,30 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
     will-change: auto !important;
     transform: none !important;
   }
-  /* Each service card needs an explicit height on mobile so that the
-     internal `height: 52%` image div resolves to a real pixel value.
-     With height: auto on the parent the percentage collapses to 0. */
+  /* Each panel occupies exactly the full viewport height on mobile to match desktop slides */
   .h-scroll-panel {
     width: 100% !important;
-    height: clamp(380px, 88vw, 480px) !important;
-    min-height: 380px !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
     flex-shrink: 0 !important;
     margin-right: 0 !important;
     margin-bottom: 2px;
     border-right: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  /* Text-only scroll panels occupy full screen slides on mobile too */
+  .h-scroll-panel-text {
+    width: 100% !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    padding: var(--s-lg) var(--gutter) !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--c-border) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
   }
 }
 
@@ -316,18 +389,75 @@ a, button { transition: opacity 0.2s var(--ease-ui); }
   }
 }
 
-/* ── Watch canvas: disable complex scrub on mobile ───────────────── */
+/* ── Watch canvas responsive overlay layouts ─────────────────────── */
+.vault-panel-1 {
+  position: absolute;
+  left: var(--gutter);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  max-width: 360px;
+  text-align: left;
+}
+.vault-panel-2 {
+  position: absolute;
+  right: var(--gutter);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  max-width: 360px;
+  text-align: right;
+}
+
 @media (max-width: 767px) {
   .watch-canvas-wrap {
-    height: 70vw !important;
-    min-height: 320px !important;
-    max-height: 520px !important;
+    height: 100dvh !important;
+  }
+  .vault-panel-1,
+  .vault-panel-2 {
+    left: var(--gutter) !important;
+    right: var(--gutter) !important;
+    top: auto !important;
+    bottom: clamp(140px, 18vh, 180px) !important;
+    transform: none !important;
+    max-width: 100% !important;
+    text-align: center !important;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: clamp(18px, 4vw, 24px);
+    border: 1px solid rgba(197, 164, 110, 0.18);
+  }
+  .vault-panel-2 span {
+    text-align: center !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .vault-brand-list {
+    white-space: normal !important;
+    font-size: 8px !important;
+    letter-spacing: 0.18em !important;
+    line-height: 1.6 !important;
+    padding: 0 var(--gutter) !important;
+    max-width: 290px !important;
+    margin: 0 auto 20px !important;
   }
 }
 
-/* ── WatchTiltCard: simpler on mobile ───────────────────────────── */
+/* ── WatchTiltCard zoom and hover micro-actions ─────────────────── */
+.watch-tilt-card-img {
+  transition: transform 1.4s var(--ease-out), filter 0.6s var(--ease-out) !important;
+}
+.watch-tilt-card-wrap:hover .watch-tilt-card-img {
+  transform: scale(1.05);
+  filter: brightness(0.64) saturate(0.96) !important;
+}
 @media (max-width: 767px) {
   .watch-tilt-card { transform: none !important; }
+  .watch-tilt-card-wrap:hover .watch-tilt-card-img {
+    transform: none !important;
+    filter: brightness(0.52) saturate(0.82) !important;
+  }
 }
 
 /* ── Touch: remove hover-only transforms ────────────────────────── */

@@ -97,7 +97,7 @@ function TheHouses() {
       >
         {/* Intro panel */}
         <div
-          className="h-scroll-panel"
+          className="h-scroll-panel h-scroll-panel-text"
           style={{
             width: "40vw",
             height: "100vh",
@@ -199,7 +199,7 @@ function TheHouses() {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                padding: "var(--s-lg) var(--gutter)",
+                padding: "clamp(20px, 4vw, 40px) var(--gutter)",
               }}
             >
               <img
@@ -724,7 +724,7 @@ export default function Timepieces() {
           ref={heroRef}
           style={{
             position:   "relative",
-            height:     "100vh",
+            height:     "100dvh",
             overflow:   "hidden",
             background: "#060606",
             display:    "flex",
@@ -751,15 +751,15 @@ export default function Timepieces() {
           <div style={{
             position:   "absolute",
             inset:       0,
-            background:  "linear-gradient(to top, rgba(6,6,6,0.98) 0%, rgba(6,6,6,0.22) 55%, rgba(6,6,6,0.06) 100%)",
+            background:  "linear-gradient(to top, rgba(6,6,6,0.85) 0%, rgba(6,6,6,0.3) 35%, transparent 100%)",
           }} />
 
           {/* Content — bottom-left */}
           <div style={{
             position:      "relative",
             zIndex:         10,
-            padding:       "var(--s-md) var(--gutter)",
-            paddingBottom: "var(--s-lg)",
+            padding:       "var(--gutter)",
+            paddingBottom: "clamp(24px, 5vh, 48px)",
             width:         "100%",
           }}>
             <span style={{ ...labelStyle, marginBottom: "24px" }}>The Vault · Swiss Horology</span>
@@ -799,14 +799,12 @@ export default function Timepieces() {
               letterSpacing: "0.012em",
               marginBottom:  "40px",
             }}>
-              Every reference GIA-verified. Every seller cleared.
-              <br />
-              Every watch inspected to our 14-point standard
-              <br />
-              before it reaches you.
+              Rolex, Patek Philippe, Audemars Piguet, Cartier, Richard Mille.
+              Every reference cleared by Swiss-trained hands before it reaches yours.
+              No exceptions.
             </p>
             <MagneticBtn href="tel:+19177570314">
-              <span className="btn-primary">Inquire Now</span>
+              <span className="btn-primary">Inquire About a Reference</span>
             </MagneticBtn>
           </div>
 

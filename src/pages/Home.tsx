@@ -98,19 +98,19 @@ function HeroScene({ live }: { live: boolean }) {
           scrollTrigger: {
             trigger: wrapRef.current,
             start: "top top",
-            end: "+=220%",
+            end: "+=120%",
             scrub: 1,
           },
         });
         tl.to(videoRef.current, { scale: 1.06, duration: 2.0, ease: "none" }, 0);
         tl.to(subRef.current,  { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
-        tl.to(ctaRef.current,  { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.8);
-        tl.to(sideRef.current, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.95);
+        tl.to(ctaRef.current,  { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.7);
+        tl.to(sideRef.current, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.85);
 
         ScrollTrigger.create({
           trigger: wrapRef.current,
           start: "top top",
-          end: "+=320%",
+          end: "+=150%",
           pin: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
@@ -118,7 +118,7 @@ function HeroScene({ live }: { live: boolean }) {
       });
 
       // ── Mobile: no pin, no scroll-driven reveal ───────────────────────────
-      // The 320vh pin creates 3+ screens of frozen scroll on mobile devices —
+      // The 150vh pin creates frozen scroll on mobile devices —
       // catastrophic UX on iOS. Instead, show all content immediately (after
       // the loader exits). The video still plays as an ambient background.
       mm.add("(max-width: 767px)", () => {
@@ -137,7 +137,7 @@ function HeroScene({ live }: { live: boolean }) {
       ref={wrapRef}
       style={{
         position: "relative",
-        height: "100vh",
+        height: "100dvh",
         overflow: "hidden",
         background: "#060606",
       }}
@@ -176,7 +176,7 @@ function HeroScene({ live }: { live: boolean }) {
           inset: 0,
           pointerEvents: "none",
           background:
-            "linear-gradient(to top, #060606 0%, rgba(6,6,6,0.52) 42%, rgba(6,6,6,0.06) 80%, transparent 100%)",
+            "linear-gradient(to top, #060606 0%, rgba(6,6,6,0.3) 35%, transparent 100%)",
         }}
       />
       <div
@@ -195,8 +195,8 @@ function HeroScene({ live }: { live: boolean }) {
           position: "absolute",
           bottom: 0,
           left: 0,
-          padding: "var(--s-md) var(--gutter)",
-          paddingBottom: "var(--s-lg)",
+          padding: "var(--gutter)",
+          paddingBottom: "clamp(24px, 5vh, 48px)",
           zIndex: 10,
           maxWidth: "880px",
         }}
@@ -253,6 +253,7 @@ function HeroScene({ live }: { live: boolean }) {
         </div>
 
         <div
+          cta-ref-marker=""
           ref={ctaRef}
           style={{
             display: "flex",
@@ -294,6 +295,7 @@ function HeroScene({ live }: { live: boolean }) {
 
       {/* Scroll pulse */}
       <div
+        className="hide-mobile"
         style={{
           position: "absolute",
           bottom: "28px",
@@ -344,25 +346,14 @@ function VaultScene() {
   const p1 = useRef<HTMLDivElement>(null);
   const p2 = useRef<HTMLDivElement>(null);
   const p3 = useRef<HTMLDivElement>(null);
-  // Stable ref — read at GSAP callback time, never stale
-  const isMobileRef = useRef(
-    typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches
-  );
 
-  // Initialize panels as hidden (P3 immediately visible on mobile)
+  // Initialize panels as hidden
   useLayoutEffect(() => {
-    if (isMobileRef.current) {
-      // P1 + P2 are .hide-mobile anyway; P3 must be visible immediately —
-      // on mobile the scroll window is too short to reach 82% progress.
-      gsap.set([p1.current, p2.current], { opacity: 0, y: 70, immediateRender: true });
-      gsap.set(p3.current, { opacity: 1, y: 0, immediateRender: true });
-    } else {
-      gsap.set([p1.current, p2.current, p3.current], {
-        opacity: 0,
-        y: 70,
-        immediateRender: true,
-      });
-    }
+    gsap.set([p1.current, p2.current, p3.current], {
+      opacity: 0,
+      y: 70,
+      immediateRender: true,
+    });
   }, []);
 
   // Driven by WatchCanvas's single ScrollTrigger — no competing trigger
@@ -387,16 +378,14 @@ function VaultScene() {
         immediateRender: false,
       });
 
-    // P3 CTA — desktop: animate in at 82%; mobile: already visible from init
-    if (!isMobileRef.current) {
-      const p3i = c01((prog - 0.82) / 0.1);
-      if (p3.current)
-        gsap.set(p3.current, {
-          opacity: p3i,
-          y: (1 - p3i) * 60,
-          immediateRender: false,
-        });
-    }
+    // P3 CTA — desktop: animate in at 82%
+    const p3i = c01((prog - 0.82) / 0.1);
+    if (p3.current)
+      gsap.set(p3.current, {
+        opacity: p3i,
+        y: (1 - p3i) * 60,
+        immediateRender: false,
+      });
   }, []);
 
   return (
@@ -404,7 +393,7 @@ function VaultScene() {
       totalFrames={121}
       framesPath="/assets/watch-frames"
       videoSrc="/assets/watch-reveal-ap.mp4"
-      scrubLength="420%"
+      scrubLength="260%"
       onProgress={onProgress}
     >
       {/* Radial vignette */}
@@ -430,24 +419,17 @@ function VaultScene() {
         }}
       />
 
-      {/* P1 — left · "Mechanical." — hidden on mobile (overflows 320px canvas) */}
+      {/* P1 — left · "Mechanical." */}
       <div
-        className="hide-mobile"
-        style={{
-          position: "absolute",
-          left: "var(--gutter)",
-          top: "50%",
-          transform: "translateY(-50%)",
-          zIndex: 10,
-          maxWidth: "360px",
-        }}
+        ref={p1}
+        className="vault-panel-1"
       >
-        <div ref={p1}>
+        <div>
           <span style={lbl}>The Vault · Swiss Movement</span>
           <p
             style={{
               fontFamily: "var(--f-display)",
-              fontSize: "clamp(44px, 6.5vw, 106px)",
+              fontSize: "clamp(38px, 6.5vw, 106px)",
               color: "var(--c-white)",
               fontStyle: "italic",
               fontWeight: 400,
@@ -475,24 +457,16 @@ function VaultScene() {
         </div>
       </div>
 
-      {/* P2 — right · "Perfected." — hidden on mobile (overflows 320px canvas) */}
+      {/* P2 — right · "Perfected." */}
       <div
-        className="hide-mobile"
-        style={{
-          position: "absolute",
-          right: "var(--gutter)",
-          top: "50%",
-          transform: "translateY(-50%)",
-          textAlign: "right",
-          zIndex: 10,
-          maxWidth: "360px",
-        }}
+        ref={p2}
+        className="vault-panel-2"
       >
-        <div ref={p2}>
+        <div>
           <p
             style={{
               fontFamily: "var(--f-display)",
-              fontSize: "clamp(44px, 6.5vw, 106px)",
+              fontSize: "clamp(38px, 6.5vw, 106px)",
               color: "var(--c-white)",
               fontStyle: "italic",
               fontWeight: 400,
@@ -505,7 +479,7 @@ function VaultScene() {
           <span
             style={{
               ...lbl,
-              textAlign: "right",
+              textAlign: "inherit",
               marginTop: "14px",
               marginBottom: 0,
             }}
@@ -531,6 +505,7 @@ function VaultScene() {
 
       {/* P3 — center bottom · CTA */}
       <div
+        ref={p3}
         style={{
           position: "absolute",
           bottom: "var(--s-sm)",
@@ -539,8 +514,9 @@ function VaultScene() {
           zIndex: 10,
         }}
       >
-        <div ref={p3} style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center" }}>
           <p
+            className="vault-brand-list"
             style={{
               fontFamily: "var(--f-label)",
               fontSize: "9px",
@@ -563,12 +539,12 @@ function VaultScene() {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-// S3 — BRAND STATEMENT
-// Word-by-word scroll scrub · watch movement as ghost bg
+// S3 — MERGED BRAND STATEMENT & RING MOMENT
+// Shared gear movement macro background video `/assets/movement-macro.mp4`
 // ═════════════════════════════════════════════════════════════════════════════
 const LINES = ["Nothing leaves", "before we're certain."];
 
-function StatementScene() {
+function MergedStatementRingScene() {
   const ref = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -581,8 +557,8 @@ function StatementScene() {
         ease: "none",
         scrollTrigger: {
           trigger: ref.current,
-          start: "top 68%",
-          end: "bottom 32%",
+          start: "top 62%",
+          end: "center 48%",
           scrub: 1,
         },
       });
@@ -597,10 +573,6 @@ function StatementScene() {
         position: "relative",
         overflow: "hidden",
         padding: "var(--s-xl) var(--gutter)",
-        minHeight: "64vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
         background: "#060606",
       }}
     >
@@ -616,7 +588,7 @@ function StatementScene() {
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          opacity: 0.07,
+          opacity: 0.08,
           pointerEvents: "none",
           filter: "saturate(0.18) brightness(1.3)",
         }}
@@ -632,41 +604,113 @@ function StatementScene() {
         }}
       />
 
-      <div style={{ position: "relative", zIndex: 2 }}>
-        <span style={lbl}>
-          Gotham City Jewelers · Manhattan Diamond District
-        </span>
-        <div style={{ marginTop: "22px" }}>
-          {LINES.map((line, li) => (
-            <p
-              key={li}
-              style={{
-                fontFamily: "var(--f-display)",
-                fontSize: "var(--t-h1)",
-                fontStyle: "italic",
-                fontWeight: 400,
-                lineHeight: "var(--lh-display)",
-                letterSpacing: "var(--ls-display)",
-                marginBottom: "0.02em",
-              }}
-            >
-              {line.split(" ").map((word, wi) => (
-                <span
-                  key={wi}
-                  className="w"
-                  style={{
-                    color: "var(--c-white)",
-                    display: "inline-block",
-                    marginRight: "0.28em",
-                    willChange: "opacity",
-                  }}
-                >
-                  {word}
-                </span>
-              ))}
-            </p>
-          ))}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 10,
+          maxWidth: "var(--max-w)",
+          width: "100%",
+          margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          gap: "clamp(64px, 12vh, 120px)",
+        }}
+      >
+        {/* Block 1: Statement Scroll Scrub */}
+        <div>
+          <span style={lbl}>
+            Gotham City Jewelers · Manhattan Diamond District
+          </span>
+          <div style={{ marginTop: "22px" }}>
+            {LINES.map((line, li) => (
+              <p
+                key={li}
+                style={{
+                  fontFamily: "var(--f-display)",
+                  fontSize: "var(--t-h1)",
+                  fontStyle: "italic",
+                  fontWeight: 400,
+                  lineHeight: "var(--lh-display)",
+                  letterSpacing: "var(--ls-display)",
+                  marginBottom: "0.02em",
+                }}
+              >
+                {line.split(" ").map((word, wi) => (
+                  <span
+                    key={wi}
+                    className="w"
+                    style={{
+                      color: "var(--c-white)",
+                      display: "inline-block",
+                      marginRight: "0.28em",
+                      willChange: "opacity",
+                    }}
+                  >
+                    {word}
+                  </span>
+                ))}
+              </p>
+            ))}
+          </div>
         </div>
+
+        {/* Separator gold rule */}
+        <div style={{
+          height: "1px",
+          background: "linear-gradient(to right, transparent, rgba(197,164,110,0.18) 10%, rgba(197,164,110,0.18) 90%, transparent)",
+          margin: "0 auto",
+          width: "100%"
+        }} />
+
+        {/* Block 2: Every stone has a question inside it */}
+        <motion.div
+          initial={{ opacity: 0, y: 36 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
+          style={{ width: "100%" }}
+        >
+          <span style={lbl}>The Ring Studio · Custom Engagement</span>
+          <h2
+            style={{
+              fontFamily: "var(--f-display)",
+              fontSize: "var(--t-h2)",
+              color: "var(--c-white)",
+              fontStyle: "italic",
+              fontWeight: 400,
+              lineHeight: "var(--lh-display)",
+              letterSpacing: "var(--ls-display)",
+              maxWidth: "680px",
+              marginTop: "14px",
+              marginBottom: "22px",
+            }}
+          >
+            Every stone has
+            <br />a question inside it.
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--f-body)",
+              fontSize: "var(--t-sub)",
+              color: "rgba(240,235,227,0.42)",
+              fontWeight: 300,
+              lineHeight: 1.82,
+              maxWidth: "460px",
+              marginBottom: "38px",
+            }}
+          >
+            GIA-certified diamonds. Custom settings. Built in Manhattan from
+            your first conversation — nothing is made until you say yes.
+          </p>
+          <div style={{ display: "flex", gap: "14px", flexWrap: "wrap" }}>
+            <MagneticBtn href="/ring-builder">
+              <span className="btn-primary">Design Your Ring</span>
+            </MagneticBtn>
+            <MagneticBtn href="tel:+19177570314">
+              <span className="btn-outline">Call to Begin</span>
+            </MagneticBtn>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -914,7 +958,7 @@ function ServicesScene() {
   return (
     <section
       ref={wrapRef}
-      className="h-scroll-container"
+      className="h-scroll-container has-abs-header"
       style={{
         overflow: "hidden",
         background: "var(--c-surface)",
@@ -970,155 +1014,17 @@ function ServicesScene() {
           height: "100vh",
         }}
       >
-        <div style={{ width: "clamp(200px, 25vw, 360px)", flexShrink: 0 }} />
+        <div className="hide-mobile" style={{ width: "clamp(200px, 25vw, 360px)", flexShrink: 0 }} />
         {SERVICES.map((svc) => (
           <SvcCard key={svc.num} svc={svc} />
         ))}
-        <div style={{ width: "clamp(32px, 5vw, 64px)", flexShrink: 0 }} />
+        <div className="hide-mobile" style={{ width: "clamp(32px, 5vw, 64px)", flexShrink: 0 }} />
       </div>
     </section>
   );
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-// S5 — RING MOMENT  (parallax CTA — hero-image.png)
-// Brief scene 4: "The Ring Moment" — engagement ring parallax + CTA
-// ═════════════════════════════════════════════════════════════════════════════
-function RingMomentScene() {
-  const ref = useRef<HTMLDivElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        imgRef.current,
-        { scale: 1.05, y: "-4%" },
-        {
-          scale: 1.12,
-          y: "4%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: ref.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        },
-      );
-    }, ref);
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <section
-      ref={ref}
-      style={{
-        position: "relative",
-        overflow: "hidden",
-        minHeight: "85vh",
-        display: "flex",
-        alignItems: "center",
-        background: "#060606",
-      }}
-    >
-      <img
-        ref={imgRef}
-        src="/assets/hero-image.png"
-        alt="Engagement ring"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "120%",
-          objectFit: "cover",
-          objectPosition: "center",
-          filter: "brightness(0.22) saturate(0.55)",
-          willChange: "transform",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "linear-gradient(to right, rgba(6,6,6,0.97) 0%, rgba(6,6,6,0.62) 52%, rgba(6,6,6,0.18) 100%)",
-        }}
-      />
-
-      {/* Left vertical gold rule */}
-      <div
-        style={{
-          position: "absolute",
-          top: "12%",
-          bottom: "12%",
-          left: "calc(var(--gutter) - 1px)",
-          width: "1px",
-          background:
-            "linear-gradient(to bottom, transparent, rgba(197,164,110,0.42) 30%, rgba(197,164,110,0.42) 70%, transparent)",
-        }}
-      />
-
-      <div
-        style={{
-          position: "relative",
-          zIndex: 10,
-          maxWidth: "var(--max-w)",
-          width: "100%",
-          margin: "0 auto",
-          padding: "var(--s-xl) var(--gutter)",
-        }}
-      >
-        <motion.div
-          initial={{ opacity: 0, x: -48 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <span style={lbl}>The Ring Studio · Custom Engagement</span>
-          <h2
-            style={{
-              fontFamily: "var(--f-display)",
-              fontSize: "var(--t-h1)",
-              color: "var(--c-white)",
-              fontStyle: "italic",
-              fontWeight: 400,
-              lineHeight: "var(--lh-display)",
-              letterSpacing: "var(--ls-display)",
-              maxWidth: "540px",
-              marginTop: "14px",
-              marginBottom: "26px",
-            }}
-          >
-            Every stone has
-            <br />a question inside it.
-          </h2>
-          <p
-            style={{
-              fontFamily: "var(--f-body)",
-              fontSize: "var(--t-sub)",
-              color: "rgba(240,235,227,0.42)",
-              fontWeight: 300,
-              lineHeight: 1.82,
-              maxWidth: "390px",
-              marginBottom: "44px",
-            }}
-          >
-            GIA-certified diamonds. Custom settings. Built in Manhattan from
-            your first conversation — nothing is made until you say yes.
-          </p>
-          <div style={{ display: "flex", gap: "14px", flexWrap: "wrap" }}>
-            <MagneticBtn href="/ring-builder">
-              <span className="btn-primary">Design Your Ring</span>
-            </MagneticBtn>
-            <MagneticBtn href="tel:+19177570314">
-              <span className="btn-outline">Call to Begin</span>
-            </MagneticBtn>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
 
 // ═════════════════════════════════════════════════════════════════════════════
 // S7 — THE EXCHANGE  (sell/trade + source split-grid)
@@ -1922,14 +1828,11 @@ export default function Home() {
         <VaultScene />
         <GoldLine opacity={0.32} />
 
-        {/* S3 — Brand statement */}
-        <StatementScene />
+        {/* Merged Brand Statement & Ring Studio Scene with movement macro background video */}
+        <MergedStatementRingScene />
 
         {/* Brand strip */}
         <BrandMarquee />
-
-        {/* S4 — Ring Moment (primary ring conversion — moved above services per client brief) */}
-        <RingMomentScene />
         <GoldLine opacity={0.32} />
 
         {/* S5 — Services horizontal */}

@@ -69,11 +69,11 @@
   --lh-body:     1.82;        /* More breathing room — minimal luxury needs air */
 
   /* ── Spacing ─────────────────────────────────────────────────────────────── */
-  --s-xs:  12px;
-  --s-sm:  28px;
-  --s-md:  56px;
-  --s-lg:  96px;              /* +8px more air between sections */
-  --s-xl:  144px;             /* +16px — minimal luxury = generous whitespace */
+  --s-xs:  10px;
+  --s-sm:  22px;
+  --s-md:  44px;
+  --s-lg:  72px;              /* tightened for perfect layout pacing */
+  --s-xl:  100px;             /* tightened to eliminate vertical empty voids */
 
   /* ── Layout ──────────────────────────────────────────────────────────────── */
   --max-w:  1320px;
@@ -88,11 +88,11 @@
 /* ── Mobile overrides ─────────────────────────────────────────────────────── */
 @media (max-width: 767px) {
   :root {
-    --t-hero:  clamp(40px, 11vw, 72px);
-    --t-h1:    clamp(32px, 9vw,  52px);
-    --t-h2:    clamp(24px, 7vw,  40px);
-    --t-h3:    clamp(20px, 5.5vw, 32px);
-    --t-sub:   14px;
+    --t-hero:  clamp(32px, 8.5vw,  52px);
+    --t-h1:    clamp(26px, 7vw,    40px);
+    --t-h2:    clamp(20px, 5.5vw,  30px);
+    --t-h3:    clamp(18px, 4.5vw,  24px);
+    --t-sub:   13px;
     --s-lg:    56px;
     --s-xl:    72px;
     --gutter:  20px;

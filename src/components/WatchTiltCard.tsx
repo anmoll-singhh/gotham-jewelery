@@ -51,6 +51,7 @@ export function WatchTiltCard({ img, name, ref_, brand, delay = 0 }: WatchTiltCa
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
         whileHover={{ scale: 1.02 }}
+        className="watch-tilt-card-wrap"
         style={{
           rotateX,
           rotateY,
@@ -68,6 +69,7 @@ export function WatchTiltCard({ img, name, ref_, brand, delay = 0 }: WatchTiltCa
         <img
           src={img}
           alt={name}
+          className="watch-tilt-card-img"
           style={{
             width:      '100%',
             height:     '100%',

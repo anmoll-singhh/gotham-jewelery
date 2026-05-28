@@ -314,36 +314,76 @@ export function Nav() {
             <div style={{ position: "absolute", top: "68px", left: "var(--gutter)", right: "var(--gutter)", height: "1px", background: "rgba(197,164,110,0.15)" }} />
 
             <nav style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0", width: "100%" }}>
-              {LINKS.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, y: 28 }}
-                  animate={{ opacity: 1, y: 0  }}
-                  exit={{    opacity: 0, y: -14 }}
-                  transition={{ delay: i * 0.07, ease: [0.16, 1, 0.3, 1], duration: 0.55 }}
-                  style={{ width: "100%", borderBottom: "1px solid rgba(197,164,110,0.07)" }}
-                >
-                  <Link
-                    to={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    style={{
-                      display:       "flex",
-                      alignItems:    "center",
-                      justifyContent:"space-between",
-                      padding:       "28px var(--gutter)",
-                      fontFamily:    "var(--f-display)",
-                      fontSize:      "clamp(28px, 6vw, 42px)",
-                      fontStyle:     "italic",
-                      fontWeight:     400,
-                      color:         location.pathname === link.href ? "var(--c-accent)" : "var(--c-white)",
-                      letterSpacing: "var(--ls-heading)",
-                    }}
+              {LINKS.map((link, i) => {
+                const hasDropdown = link.dropdown && link.dropdown.length > 0;
+                return (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, y: 28 }}
+                    animate={{ opacity: 1, y: 0  }}
+                    exit={{    opacity: 0, y: -14 }}
+                    transition={{ delay: i * 0.07, ease: [0.16, 1, 0.3, 1], duration: 0.55 }}
+                    style={{ width: "100%", borderBottom: "1px solid rgba(197,164,110,0.07)" }}
                   >
-                    {link.label}
-                    <span style={{ fontFamily: "var(--f-label)", fontSize: "9px", letterSpacing: "0.28em", color: "rgba(197,164,110,0.45)" }}>→</span>
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      to={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      style={{
+                        display:       "flex",
+                        alignItems:    "center",
+                        justifyContent:"space-between",
+                        padding:       "24px var(--gutter)",
+                        fontFamily:    "var(--f-display)",
+                        fontSize:      "clamp(28px, 6vw, 42px)",
+                        fontStyle:     "italic",
+                        fontWeight:     400,
+                        color:         location.pathname === link.href ? "var(--c-accent)" : "var(--c-white)",
+                        letterSpacing: "var(--ls-heading)",
+                      }}
+                    >
+                      {link.label}
+                      <span style={{ fontFamily: "var(--f-label)", fontSize: "9px", letterSpacing: "0.28em", color: "rgba(197,164,110,0.45)" }}>→</span>
+                    </Link>
+
+                    {/* Sub-brands grid for mobile Vault */}
+                    {hasDropdown && (
+                      <div style={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr",
+                        gap: "12px var(--gutter)",
+                        padding: "0 var(--gutter) 24px",
+                        background: "linear-gradient(to bottom, transparent, rgba(197,164,110,0.02))",
+                      }}>
+                        {link.dropdown!.map((sub) => (
+                          <Link
+                            key={sub.label}
+                            to={sub.href}
+                            onClick={() => setMenuOpen(false)}
+                            style={{
+                              fontFamily: "var(--f-label)",
+                              fontSize: "9px",
+                              letterSpacing: "0.24em",
+                              textTransform: "uppercase",
+                              color: "rgba(240,235,227,0.45)",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "8px",
+                              padding: "8px 0",
+                              borderBottom: "1px solid rgba(197,164,110,0.05)",
+                              transition: "color 0.2s",
+                            }}
+                            onMouseEnter={e => { e.currentTarget.style.color = "var(--c-accent)"; }}
+                            onMouseLeave={e => { e.currentTarget.style.color = "rgba(240,235,227,0.45)"; }}
+                          >
+                            <span style={{ width: "4px", height: "4px", background: "var(--c-accent)", borderRadius: "50%", opacity: 0.5 }} />
+                            {sub.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </motion.div>
+                );
+              })}
 
               {/* Mobile CTA */}
               <motion.div

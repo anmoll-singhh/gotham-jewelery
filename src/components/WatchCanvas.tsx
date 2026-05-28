@@ -81,12 +81,6 @@ export function WatchCanvas({
 
   // ─── Phase 1: Detect whether frames exist ───────────────────────────────
   useEffect(() => {
-    // Mobile: skip 121-frame loading entirely (~10MB on a cellular connection).
-    // Show a single still frame instead — scroll-driven canvas is desktop-only.
-    if (typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches) {
-      setMode("static");
-      return;
-    }
     const probe = new Image();
     probe.onload = () => setMode("canvas");
     probe.onerror = () => setMode("video");
@@ -244,47 +238,25 @@ export function WatchCanvas({
           const fadeProgress = Math.min(1, progress / 0.06);
           entryOverlayRef.current.style.opacity = String(1 - fadeProgress);
         }
-        // Fade IN exit overlay starting at 80% progress, complete by 98%.
-        // Wide window + no CSS transition = overlay is fully black BEFORE the
-        // pin ends, so the next section (ServicesScene) never bleeds through.
+        // Keep exit overlay transparent so the watch never disappears at the end of scroll
         if (exitOverlayRef.current) {
-          const exitProgress = Math.min(1, Math.max(0, (progress - 0.80) / 0.18));
-          exitOverlayRef.current.style.opacity = String(exitProgress);
+          exitOverlayRef.current.style.opacity = "0";
         }
       };
 
-      const mm = gsap.matchMedia();
-
-      // ── Desktop: full pin + scroll-hijack experience ──────────────
-      mm.add("(min-width: 768px)", () => {
-        ScrollTrigger.create({
-          trigger: containerRef.current,
-          start: "top top",
-          end: `+=${scrubLength}`,
-          pin: true,
-          // anticipatePin prevents the visual snap when pin activates —
-          // GSAP starts applying fixed positioning slightly early so the
-          // element is already in place before the trigger fires.
-          anticipatePin: 1,
-          // Canvas: scrub: true (instant, RAF draws at 60fps — no smoothing needed)
-          // Video:  scrub: 1 (1s smoothing → fewer distinct seek targets → less thrashing)
-          scrub: mode === "canvas" ? true : 1,
-          onUpdate: (self) => doUpdate(self.progress),
-        });
-      });
-
-      // ── Mobile: no pin — animate naturally as user scrolls past ──
-      // Pin causes janky scroll-hijacking on touch devices. Instead,
-      // the element scrolls normally and we scrub through frames as it
-      // moves through the viewport. CSS caps height at 70vw/520px.
-      mm.add("(max-width: 767px)", () => {
-        ScrollTrigger.create({
-          trigger: containerRef.current,
-          start: "top 85%",
-          end: "bottom 15%",
-          scrub: mode === "canvas" ? true : 1,
-          onUpdate: (self) => doUpdate(self.progress),
-        });
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: "top top",
+        end: `+=${scrubLength}`,
+        pin: true,
+        // anticipatePin prevents the visual snap when pin activates —
+        // GSAP starts applying fixed positioning slightly early so the
+        // element is already in place before the trigger fires.
+        anticipatePin: 1,
+        // Canvas: scrub: true (instant, RAF draws at 60fps — no smoothing needed)
+        // Video:  scrub: 1 (1s smoothing → fewer distinct seek targets → less thrashing)
+        scrub: mode === "canvas" ? true : 1,
+        onUpdate: (self) => doUpdate(self.progress),
       });
     }, containerRef);
     return () => ctx.revert();
