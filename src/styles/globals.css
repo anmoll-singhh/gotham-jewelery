@@ -4,7 +4,11 @@
 /* ─── Reset ─────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: auto; } /* Lenis owns smooth scroll */
+html {
+  scroll-behavior: auto; /* Lenis owns smooth scroll */
+  overflow-x: hidden;
+  max-width: 100%;
+}
 
 body {
   background-color: var(--c-void);
@@ -17,6 +21,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  max-width: 100%;
 }
 
 img, video { display: block; max-width: 100%; }
