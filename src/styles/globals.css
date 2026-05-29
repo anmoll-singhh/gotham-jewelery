@@ -248,6 +248,19 @@ button {
   outline: none;
 }
 
+/* ─── Hero scenic image — slow Ken Burns drift ───────────────────── */
+@keyframes heroKenBurns {
+  0%   { transform: scale(1.00) translate(0%, 0%); }
+  50%  { transform: scale(1.07) translate(-1.2%, -0.8%); }
+  100% { transform: scale(1.04) translate(0.8%, 0.5%); }
+}
+
+.hero-scenic-img {
+  animation: heroKenBurns 28s ease-in-out infinite alternate;
+  transform-origin: center center;
+  will-change: transform;
+}
+
 /* ─── Prefers-reduced-motion ──────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
 

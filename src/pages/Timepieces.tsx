@@ -259,39 +259,51 @@ function TheHouses() {
 // ─────────────────────────────────────────────────────────────────────────────
 const WATCHES = [
   {
-    name: "Rolex Submariner",
-    ref: "126613LN",
+    name: "Submariner Date",
+    ref: "126610LN",
     img: "/assets/gotham-rolex-sub.jpg",
     brand: "Rolex",
   },
   {
-    name: "Patek Philippe Nautilus",
-    ref: "5712/1A",
+    name: "Nautilus 5711",
+    ref: "5711/1A",
     img: "/assets/gotham-patek-nautilus.jpg",
     brand: "Patek Philippe",
   },
   {
-    name: "Cartier",
+    name: "Santos Chronograph",
     ref: "W2SA0008",
     img: "/assets/gotham-cartier-1.jpg",
     brand: "Cartier",
   },
   {
-    name: "Audemars Piguet Royal Oak",
-    ref: "77351ST",
+    name: "Royal Oak 33mm",
+    ref: "77350ST",
     img: "/assets/gotham-ap-product.jpg",
     brand: "Audemars Piguet",
   },
   {
-    name: "Rolex Submariner Gold",
+    name: "Submariner Date Gold",
     ref: "126618LN",
     img: "/assets/gotham-rolex-sub-gold.jpg",
     brand: "Rolex",
   },
   {
-    name: "Rolex Datejust",
-    ref: "124273",
+    name: "Datejust 41",
+    ref: "126334",
     img: "/assets/gotham-rolex-datejust.jpg",
+    brand: "Rolex",
+  },
+  {
+    name: "GMT-Master II Sprite",
+    ref: "126720VTNR",
+    img: "/assets/gotham-rolex-gmt.jpg",
+    brand: "Rolex",
+  },
+  {
+    name: "Datejust 36 Rosé",
+    ref: "126281RBR",
+    img: "/assets/gotham-rolex-rainbow.jpg",
     brand: "Rolex",
   },
 ];

@@ -22,7 +22,7 @@ gsap.ticker.lagSmoothing(0)
 ;(window as unknown as { __lenis: typeof lenis }).__lenis = lenis
 
 // Refresh all ScrollTrigger pin spacers after web fonts load.
-// Bodoni Moda + Satoshi + Clash Display all load async from external CDNs.
+// Cormorant Garamond + Jost both load async from Google Fonts CDN.
 // If fonts load AFTER ScrollTrigger.refresh() (triggered by the loader exit),
 // the computed text heights are wrong → pin spacers are wrong → sections overlap.
 document.fonts.ready.then(() => {

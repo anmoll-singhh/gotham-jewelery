@@ -66,28 +66,17 @@ let _loaderShown = false;
 // ═════════════════════════════════════════════════════════════════════════════
 function HeroScene({ live }: { live: boolean }) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
   const subRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const sideRef = useRef<HTMLDivElement>(null);
-  const [videoReady, setVideoReady] = useState(false);
-
-  // Hero video is a looping ambient background — NOT time-scrubbed.
-  // GSAP only applies a CSS scale transform on scroll (see tl.to below).
-  // Let the video play normally: autoPlay + loop on the element is all we need.
-  // The old "stop" useEffect was setting playbackRate=0 on canplay, which on
-  // many browsers delays or prevents the canplay event from stabilising, causing
-  // the HeroSkeleton to stay visible indefinitely. Removed.
+  const [imgReady, setImgReady] = useState(false);
 
   // Scroll-driven: sub-text, CTAs, address slide in as user scrolls through pin
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      // ── Desktop: full scroll-driven reveal + pin ─────────────────────────
-      // Content reveals finish at 220vh; HeroScene STAYS PINNED until 320vh
-      // so WatchCanvas can travel from viewport-bottom to viewport-top without
-      // any visible gap between sections.
       mm.add("(min-width: 768px)", () => {
         gsap.set([subRef.current, ctaRef.current, sideRef.current], {
           opacity: 0,
@@ -102,7 +91,6 @@ function HeroScene({ live }: { live: boolean }) {
             scrub: 1,
           },
         });
-        tl.to(videoRef.current, { scale: 1.06, duration: 2.0, ease: "none" }, 0);
         tl.to(subRef.current, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
         tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.7);
         tl.to(sideRef.current, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.85);
@@ -117,10 +105,6 @@ function HeroScene({ live }: { live: boolean }) {
         });
       });
 
-      // ── Mobile: no pin, no scroll-driven reveal ───────────────────────────
-      // The 150vh pin creates frozen scroll on mobile devices —
-      // catastrophic UX on iOS. Instead, show all content immediately (after
-      // the loader exits). The video still plays as an ambient background.
       mm.add("(max-width: 767px)", () => {
         gsap.set([subRef.current, ctaRef.current, sideRef.current], {
           opacity: 1,
@@ -143,31 +127,44 @@ function HeroScene({ live }: { live: boolean }) {
       }}
     >
       <AnimatePresence>
-        {!videoReady && <HeroSkeleton key="sk" />}
+        {!imgReady && <HeroSkeleton key="sk" />}
       </AnimatePresence>
 
-      {/* Background video — orbiting ring */}
-      <video
-        ref={videoRef}
-        src="/assets/hero-ring-void.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        onCanPlay={() => setVideoReady(true)}
+      {/* Background — Manhattan at golden hour. Scenic, cinematic, grounded. */}
+      <div
         style={{
           position: "absolute",
           inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          transformOrigin: "center",
-          willChange: "transform",
-          opacity: videoReady ? 1 : 0,
-          transition: "opacity 0.9s var(--ease-silk)",
+          overflow: "hidden",
+          opacity: imgReady ? 1 : 0,
+          transition: "opacity 1.1s var(--ease-silk)",
         }}
-      />
+      >
+        <img
+          ref={imgRef}
+          src="/assets/gotham-newyork.jpg"
+          alt=""
+          aria-hidden="true"
+          className="hero-scenic-img"
+          onLoad={() => setImgReady(true)}
+          style={{
+            position: "absolute",
+            inset: "-6% -6%",
+            width: "112%",
+            height: "112%",
+            objectFit: "cover",
+            objectPosition: "center 40%",
+            filter: "brightness(0.22) saturate(0.75) sepia(0.18)",
+          }}
+        />
+        {/* Warm amber tone overlay — golden hour city glow */}
+        <div style={{
+          position: "absolute",
+          inset: 0,
+          background: "radial-gradient(ellipse 70% 60% at 60% 45%, rgba(180,120,40,0.12) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }} />
+      </div>
 
       {/* Gradient overlays */}
       <div
@@ -728,7 +725,7 @@ const SERVICES = [
     body: "GIA-certified stones. Built in Manhattan from a single conversation. Yours from the first sketch — nothing exists until you say yes.",
     href: "/ring-builder",
     cta: "Begin Here",
-    img: "/assets/gotham-hf-flatlay.png",
+    img: "/assets/gotham-banner-patek.jpg",
   },
   {
     num: "02",
@@ -738,7 +735,7 @@ const SERVICES = [
     body: "We don't sell collections. Every piece is made for someone specific. If you need to ask the price, we'll tell you. No pressure, ever.",
     href: "/custom-jewelry",
     cta: "Start Creating",
-    img: "/assets/gotham-hf-wrist.png",
+    img: "/assets/gotham-rolex-lifestyle.webp",
   },
   {
     num: "03",
@@ -748,7 +745,7 @@ const SERVICES = [
     body: "Rolex, Patek Philippe, Audemars Piguet, Cartier, Richard Mille. We don't carry pieces we wouldn't wear ourselves. Price on request.",
     href: "/timepieces",
     cta: "Enter the Vault",
-    img: "/assets/gotham-hf-patek.png",
+    img: "/assets/gotham-hf-flatlay.png",
   },
 ];
 
@@ -1229,14 +1226,14 @@ const WATCHES = [
   },
   {
     img: "/assets/gotham-ap-product.jpg",
-    name: "Royal Oak 41mm",
-    ref_: "15500ST",
+    name: "Royal Oak 33mm",
+    ref_: "77350ST",
     brand: "Audemars Piguet",
   },
   {
     img: "/assets/gotham-cartier-1.jpg",
-    name: "Santos de Cartier",
-    ref_: "WSSA0018",
+    name: "Santos Chronograph",
+    ref_: "W2SA0008",
     brand: "Cartier",
   },
 ];

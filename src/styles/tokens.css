@@ -22,9 +22,9 @@
 :root {
 
   /* ── Fonts ──────────────────────────────────────────────────────────────── */
-  --f-display: 'Bodoni Moda', 'Didot', 'Bodoni MT', Georgia, serif;
-  --f-body:    'Satoshi', 'DM Sans', system-ui, sans-serif;
-  --f-label:   'Clash Display', 'Outfit', system-ui, sans-serif;
+  --f-display: 'Cormorant Garamond', 'Cormorant', 'Garamond', Georgia, serif;
+  --f-body:    'Jost', 'DM Sans', system-ui, sans-serif;
+  --f-label:   'Jost', 'Outfit', system-ui, sans-serif;
 
   /* ── Palette ─────────────────────────────────────────────────────────────── */
   --c-void:        #080808;   /* hero backgrounds — off-black, not pure */
@@ -63,8 +63,8 @@
   --ls-label:     0.42em;     /* very wide — stone-carved label feel */
 
   /* ── Line-heights ────────────────────────────────────────────────────────── */
-  --lh-display:  0.96;        /* Bodoni Moda italic at 100px+ — slight tightness,
-                                 no overlap. 0.92 caused visible line collision. */
+  --lh-display:  0.95;        /* Cormorant Garamond italic at 100px+ — hairline
+                                 strokes need a touch of room. 0.92 clips descenders. */
   --lh-heading:  1.06;
   --lh-body:     1.82;        /* More breathing room — minimal luxury needs air */
 
