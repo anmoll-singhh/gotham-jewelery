@@ -192,10 +192,12 @@ function HeroScene({ live }: { live: boolean }) {
           position: "absolute",
           bottom: 0,
           left: 0,
+          right: 0,
           padding: "var(--gutter)",
           paddingBottom: "clamp(24px, 5vh, 48px)",
           zIndex: 10,
           maxWidth: "880px",
+          boxSizing: "border-box",
         }}
       >
         <motion.div

@@ -114,7 +114,7 @@ export function Footer() {
         </div>
 
         {/* Lower bar */}
-        <div style={{
+        <div className="footer-lower-bar" style={{
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           paddingTop: 'var(--s-sm)', marginTop: 'var(--s-md)',
           borderTop: '1px solid rgba(255,255,255,0.05)',
@@ -123,7 +123,7 @@ export function Footer() {
           <p style={{ fontFamily: 'var(--f-body)', fontSize: '10px', letterSpacing: '0.12em', color: 'rgba(240,235,227,0.22)' }}>
             © {year} Gotham City Jewelers LLC. Manhattan Diamond District.
           </p>
-          <div style={{ display: 'flex', gap: '28px' }}>
+          <div className="footer-legal-links" style={{ display: 'flex', gap: '28px' }}>
             {LEGAL.map(l => (
               <a key={l.label} href={l.href} style={{ fontFamily: 'var(--f-label)', fontSize: '9px', letterSpacing: 'var(--ls-label)', textTransform: 'uppercase', color: 'rgba(240,235,227,0.22)', transition: 'color 0.2s var(--ease-ui)' }}
                 onMouseEnter={e => { e.currentTarget.style.color = 'rgba(240,235,227,0.6)' }}

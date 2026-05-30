@@ -250,9 +250,17 @@ button {
 
 /* ─── Hero scenic image — slow Ken Burns drift ───────────────────── */
 @keyframes heroKenBurns {
-  0%   { transform: scale(1.00) translate(0%, 0%); }
-  50%  { transform: scale(1.07) translate(-1.2%, -0.8%); }
-  100% { transform: scale(1.04) translate(0.8%, 0.5%); }
+  0% {
+    transform: scale(1.00) translate(0%, 0%);
+  }
+
+  50% {
+    transform: scale(1.07) translate(-1.2%, -0.8%);
+  }
+
+  100% {
+    transform: scale(1.04) translate(0.8%, 0.5%);
+  }
 }
 
 .hero-scenic-img {
@@ -448,12 +456,12 @@ button {
     overflow: hidden !important;
   }
 
-  .services-card > div:first-child {
+  .services-card>div:first-child {
     height: 240px !important;
     width: 100% !important;
   }
 
-  .services-card > div:last-child {
+  .services-card>div:last-child {
     height: auto !important;
     padding: 24px !important;
   }
@@ -542,7 +550,25 @@ button {
   .footer-nav-cols {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: var(--s-sm) !important;
+    gap: 28px var(--s-sm) !important;
+  }
+
+  .footer-nav-cols > div:nth-child(2) {
+    grid-column: 1 / -1 !important;
+    margin-top: 6px;
+  }
+
+  .footer-lower-bar {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 16px !important;
+  }
+
+  .footer-legal-links {
+    justify-content: center !important;
+    width: 100% !important;
+    gap: 24px !important;
   }
 }
 
@@ -589,7 +615,7 @@ button {
     left: var(--gutter) !important;
     right: var(--gutter) !important;
     top: auto !important;
-    bottom: clamp(140px, 18vh, 180px) !important;
+    bottom: clamp(64px, 11vh, 110px) !important;
     transform: none !important;
     max-width: 100% !important;
     text-align: center !important;
