@@ -12,15 +12,15 @@ dist
 dist-ssr
 *.local
 
-# Higgsfield media — large files, never commit
-public/assets/*.mp4
-public/assets/*.mov
-public/assets/*.jpg
-public/assets/*.jpeg
-public/assets/*.png
-public/assets/*.webp
-public/assets/*.gif
-!public/assets/.gitkeep
+# Higgsfield media — commented out to allow committing essential assets for Vercel/Netlify production builds
+# public/assets/*.mp4
+# public/assets/*.mov
+# public/assets/*.jpg
+# public/assets/*.jpeg
+# public/assets/*.png
+# public/assets/*.webp
+# public/assets/*.gif
+# !public/assets/.gitkeep
 
 # Editor directories and files
 .vscode/*

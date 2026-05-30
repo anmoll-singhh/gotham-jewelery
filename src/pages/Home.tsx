@@ -147,6 +147,7 @@ function HeroScene({ live }: { live: boolean }) {
           aria-hidden="true"
           className="hero-scenic-img"
           onLoad={() => setImgReady(true)}
+          onError={() => setImgReady(true)}
           style={{
             position: "absolute",
             inset: "-6% -6%",
